@@ -21,6 +21,8 @@ def ship_size(data, cell):
     if type(cell[1]) != int:
         print("Second element of the second argument must be a number - 1..10")
         return None
+    if type(cell[1]) == dict:
+        print("Second element of the second argument is dictionary")
     if not has_ship(data, cell):
         return 0
     x = ord(cell[0].upper()) - 64
@@ -85,11 +87,26 @@ def has_ship(data, coords):
     y = coords[1]
     if x < 1 or x > 10:
         print('Wrong coordinate. Must be from A to J.')
-        return None
+        return
     if y < 1 or y > 10:
         print('Wrong coordinate. Must be from 1 to 10.')
-        return None
+        return
     if data[(x, y)] or data[(x, y)] == 'damaged':
         return True
     else:
         return False
+
+def check_size(data, coords):
+    """
+    (dict, tuple) -> (bool)
+    
+    Check the size of the ship
+    """
+    x = ord(coords[0].upper()) - 64
+    y = coords[1]
+    
+    value = data[(x, y)]
+    if len(value[0]) > 5 or len(value[0]) < 1 or len(value[1]) > 5:
+        print("Incorrect values")
+        return None
+    
